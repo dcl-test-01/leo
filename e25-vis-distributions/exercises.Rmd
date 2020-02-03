@@ -1,0 +1,94 @@
+---
+title: "Distributions"
+author: "Your Name"
+date: "`r Sys.Date()`"
+output: github_document
+---
+
+```{r setup, include=FALSE}
+# knitr options
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r message=FALSE, warning=FALSE}
+# Libraries
+library(tidyverse)
+
+# Parameters
+  # File with ideology scores for US House of Representatives
+file_ideology <- "../../data/congress/ideology_house.rds"
+
+#===============================================================================
+
+# Recent storms data
+storms_recent <-
+  storms %>% 
+  filter(year > 2013)
+
+# Ideology scores for US House of Representatives
+ideology <- read_rds(file_ideology)
+```
+
+__q1__ Use `theme()` to make the following adjustments to this plot:
+
+* Turn the plot background white
+* Turn both minor and major grid lines gray
+* Change the axis text to size 12
+
+```{r}
+storms_recent %>% 
+  ggplot(aes(wind)) +
+  geom_histogram(binwidth = 10)
+```
+
+
+__q2__ The `storms_recent` data is a subset of the `dplyr::storms` data that includes only recent storms. Use `storms_recent` to recreate the following plots. 
+
+Note: For all plots, show your code.
+
+__q2.1__
+
+```{r, echo = FALSE}
+knitr::include_graphics("data/q2.1.png")
+```
+
+
+__q2.2__
+
+```{r, echo = FALSE}
+knitr::include_graphics("data/q2.2.png")
+```
+
+
+__q3__ Improve upon this `diamonds` plot that tried to visualize the distribution of `carat` for different values of `cut`.
+
+```{r, q3}
+diamonds %>% 
+  filter(carat < 2.5) %>% 
+  ggplot(aes(carat, fill = cut)) + 
+  geom_histogram(binwidth = 0.1) +
+  scale_fill_discrete()
+```
+
+
+__q4__ `ideology` contains data on the ideological views for Democrat and Republican  members of the US House of Representatives from eight different Congresses (1945, 1955, 1965, 1975, 1985, 1995, 2005, and 2015). 
+
+```{r}
+ideology %>% 
+  slice(1:10) %>% 
+  knitr::kable()
+```
+
+`score` is the [NOMINATE first dimension estimate](https://en.wikipedia.org/wiki/NOMINATE_(scaling_method)). A `score` of -1 indicates that the member is extremely liberal, while a `score` of 1 indicates that they are extremely conservative. The data is available from [voteview.com](https://voteview.com/data).
+
+__q4.1__ Create three completely different EDA plots that show the relationship between `year`, `party`, and `score`.
+
+__q4.2__ Choose your best plot from __q4.1__ and turn it into a presentation plot.
+
+<!-- Use following chunk for plot. -->
+
+```{r, q4.2, out.width="100%"}
+
+```
+
+<!-- notes-link -->
